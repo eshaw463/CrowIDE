@@ -1,5 +1,3 @@
-//Most up to date version likely on IntJ
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 //import java.util.*;
@@ -10,6 +8,17 @@ import java.awt.*;
 import java.io.*;
 
 public class Main {
+  public static Color backColor;
+  public static Color panelColor;
+  public static Color buttonColor;
+  public static Color textColor;
+  public static Color cursorColor;
+  public static Color saveColor;
+  public static Color loadColor;
+  public static Color CRColor;
+
+  public static String def = "";
+
   public static JTextArea display = null;
 
   public static void main(String[] args) {
@@ -248,6 +257,81 @@ public class Main {
     button3.addActionListener(BL3);
     button4.addActionListener(BL4);
     button5.addActionListener(BL5);
+
+    loadTheme();
+
+    try {
+      if (!(def.equals("default"))) {
+        mainpanel.setBackground(backColor);
+        panel.setBackground(backColor);
+        panel2.setBackground(backColor);
+        panel3.setBackground(backColor);
+        display.setBackground(panelColor);
+        label.setForeground(textColor);
+        display.setForeground(textColor);
+        display.setCaretColor(cursorColor);
+        button.setBackground(buttonColor);
+        button2.setBackground(buttonColor);
+        button3.setBackground(buttonColor);
+        button4.setBackground(buttonColor);
+        button5.setBackground(buttonColor);
+
+        button.setForeground(saveColor);
+        button2.setForeground(loadColor);
+        button3.setForeground(textColor);
+        button4.setForeground(textColor);
+        button5.setForeground(CRColor);
+      }
+    } catch (Exception E){
+      System.err.println("Theme not loaded. The theme name is null");
+    }
+
   }
+
+  public static void loadTheme(){
+    int[][] c = new int[8][3];
+
+    String loader = "";
+
+    try {
+      BufferedReader re = new BufferedReader(new FileReader("theme.txt"));
+
+      loader = re.readLine();
+      def = re.readLine();
+
+      re.close();
+    } catch (IOException eeee) {
+      eeee.printStackTrace();
+    }
+
+    String[] cc = loader.split(" ");
+
+    String[][] ccc = new String[8][4];
+
+    int count = 0;
+    for (int i = 0; i < 8; i++) {
+      for (int j = 0; j < 4; j++) {
+        ccc[i][j] = cc[count];
+        count++;
+      }
+    }
+
+    for (int i = 0; i < 8; i++) {
+      for (int j = 0; j < 3; j++) {
+        c[i][j] = Integer.parseInt(ccc[i][j+1]);
+      }
+    }
+
+    backColor = new Color(c[0][0],c[0][1],c[0][2]);
+    panelColor = new Color(c[1][0],c[1][1],c[1][2]);
+    buttonColor = new Color(c[2][0],c[2][1],c[2][2]);
+    textColor = new Color(c[3][0],c[3][1],c[3][2]);
+    cursorColor = new Color(c[4][0],c[4][1],c[4][2]);
+    saveColor = new Color(c[5][0],c[5][1],c[5][2]);
+    loadColor = new Color(c[6][0],c[6][1],c[6][2]);
+    CRColor = new Color(c[7][0],c[7][1],c[7][2]);
+
+  }
+
 
 }

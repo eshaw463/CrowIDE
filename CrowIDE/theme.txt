@@ -1,0 +1,2 @@
+backColor 0 0 0 panelColor 0 0 0 buttonColor 0 0 0 textColor 0 0 0 cursorColor 0 0 0 saveColor 0 0 0 loadColor 0 0 0 CRColor 0 0 0
+default
